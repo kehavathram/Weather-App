@@ -18,7 +18,6 @@ enum WeatherError: Error {
 protocol WeatherServiceProtocol {
     func fetchWeather(city: String, stateCode: String?, countryCode: String?) -> AnyPublisher<WeatherData, Error>
     func fetchCityName(latitude: Double, longitude: Double) -> AnyPublisher<String, Error>
-    func fetchImageForURL(url: URL) -> AnyPublisher<Data, URLError>
 }
 
 class WeatherService: WeatherServiceProtocol {
@@ -84,11 +83,5 @@ class WeatherService: WeatherServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    func fetchImageForURL(url: URL) -> AnyPublisher<Data, URLError> {
-        // Fetching image data using URLSession's dataTaskPublisher method
-        return session.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .eraseToAnyPublisher()
-    }
 }
 
